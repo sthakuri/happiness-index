@@ -27028,7 +27028,7 @@ hr.horizontal.gray-light {
 }
 
 .table thead th {
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 0rem;
   text-transform: capitalize;
   letter-spacing: 0px;
   border-bottom: 1px solid #e5e5e5;
