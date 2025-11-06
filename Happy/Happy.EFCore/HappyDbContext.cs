@@ -41,18 +41,17 @@ public partial class HappyDbContext : DbContext
 
         modelBuilder.Entity<Population>(entity =>
         {
-            entity.HasKey(e => e.PopulationId).HasName("PK__Populati__3A2E15C2CC0EC404");
+            entity.HasKey(e => e.PopulationId).HasName("PK__tmp_ms_x__3A2E15C20DF47D0C");
 
             entity.ToTable("Population");
 
-            entity.HasIndex(e => e.ZipCode, "IX_Population_ZipCode");
-
-            entity.HasIndex(e => new { e.PopulationCount, e.ZipCode }, "UQ_PopulationCount_ZipCode").IsUnique();
-
             entity.Property(e => e.PopulationId).HasColumnName("PopulationID");
-            entity.Property(e => e.ZipCode)
-                .HasMaxLength(10)
-                .IsUnicode(false);
+            entity.Property(e => e.NeighborhoodId).HasColumnName("NeighborhoodID");
+
+            entity.HasOne(d => d.Neighborhood).WithMany(p => p.Populations)
+                .HasForeignKey(d => d.NeighborhoodId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Population_NeighborhoodID");
         });
 
         OnModelCreatingPartial(modelBuilder);

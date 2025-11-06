@@ -1,20 +1,21 @@
-﻿@page "/Neighborhood"
+﻿@page "/Population"
+@using Happy.ViewModels
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using Happy.EFCore.Models
 @using Happy.Services.Interfaces
 
 @rendermode InteractiveServer
 
-@inject INeighborhoodService NeighborhoodService
+@inject IPopulationService PopulationService
 
-<PageTitle>Neighborhoods</PageTitle>
+<PageTitle>Population</PageTitle>
 
 <div class="card shadow-sm">
     <div class="card-header">
-        <h5 class="mb-0">San Francisco Neighborhoods</h5>
+        <h5 class="mb-0">Neighborhood Population</h5>
     </div>
     <div class="card-body">
-        @if (neighborhoods == null)
+        @if (populations == null)
         {
             <p class="placeholder-glow">
                 <span class="placeholder col-12"></span>
@@ -23,8 +24,7 @@
         else
         {
             <div class="grid table-responsive">
-                <QuickGrid @ref="grid" Items="@neighborhoodGrid" Pagination="@pagination" Class="table table-hover">
-                    <PropertyColumn Property="@(p => p.ZipCode)" Title="Zip Code" Align="Align.Start" Sortable="true" IsDefaultSortColumn="true" />
+                <QuickGrid @ref="grid" Items="@populationGrid" Pagination="@pagination" Class="table table-hover">                    
                     <PropertyColumn Property="@(p => p.NeighborhoodName)" Title="Neighborhood" Sortable="true">
                         <ColumnOptions>
                             <div class="search-box">
@@ -32,6 +32,7 @@
                             </div>
                         </ColumnOptions>
                     </PropertyColumn>
+                    <PropertyColumn Property="@(p => p.PopulationCount)" Title="Population" Align="Align.Center" Sortable="true"/>
                 </QuickGrid>
             </div>
             <Paginator State="@pagination" />
@@ -41,16 +42,16 @@
 </div>
 
 @code {
-    private IEnumerable<Neighborhood> neighborhoods = null!;
+    private IEnumerable<NeighborhoodViewModel> populations = null!;
 
-    private QuickGrid<Neighborhood>? grid;
+    private QuickGrid<NeighborhoodViewModel>? grid;
     private PaginationState pagination = new() { ItemsPerPage = 10 };
     string nameFilter;
-    IQueryable<Neighborhood> neighborhoodGrid
+    IQueryable<NeighborhoodViewModel> populationGrid
     {
         get
         {
-            var result = neighborhoods.AsQueryable();
+            var result = populations.AsQueryable();
 
             if (!string.IsNullOrEmpty(nameFilter))
             {
@@ -62,7 +63,7 @@
     }
     protected override async Task OnInitializedAsync()
     {
-        neighborhoods = await NeighborhoodService.GetAllAsync();
+        populations = await PopulationService.GetAllAsync();
     }
 
     

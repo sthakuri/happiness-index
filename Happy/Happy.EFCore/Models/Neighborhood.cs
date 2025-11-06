@@ -10,4 +10,6 @@ public partial class Neighborhood
     public string ZipCode { get; set; } = null!;
 
     public string NeighborhoodName { get; set; } = null!;
+
+    public virtual ICollection<Population> Populations { get; set; } = new List<Population>();
 }

@@ -7,7 +7,9 @@ public partial class Population
 {
     public int PopulationId { get; set; }
 
-    public string ZipCode { get; set; } = null!;
+    public int NeighborhoodId { get; set; }
 
     public int PopulationCount { get; set; }
+
+    public virtual Neighborhood Neighborhood { get; set; } = null!;
 }
