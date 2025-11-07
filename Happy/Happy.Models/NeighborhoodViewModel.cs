@@ -17,5 +17,6 @@ namespace Happy.ViewModels
         public int MedianIncome { get; set; }
         public int CrimeIncident { get; set; }
         public int MonthlyRental { get; set; }
+        public int ParkAndFacility { get; set; }
     }
 }

@@ -1,0 +1,70 @@
+﻿@page "/Park-Facility"
+@using Happy.ViewModels
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using Happy.EFCore.Models
+@using Happy.Services.Interfaces
+
+@rendermode InteractiveServer
+
+@inject IParkAndFacilityService ParkAndFacilityService
+
+<PageTitle>Park & Facility</PageTitle>
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h5 class="mb-0">Neighborhood Park and Facility</h5>
+    </div>
+    <div class="card-body">
+        @if (parkAndFacilities == null)
+        {
+            <p class="placeholder-glow">
+                <span class="placeholder col-12"></span>
+            </p>
+        }
+        else
+        {
+            <div class="grid table-responsive">
+                <QuickGrid @ref="grid" Items="@parkAndFacilityGrid" Pagination="@pagination" Class="table table-hover">
+                    <PropertyColumn Property="@(p => p.NeighborhoodName)" Title="Neighborhood" Sortable="true">
+                        <ColumnOptions>
+                            <div class="search-box">
+                                <input type="search" autofocus @bind="nameFilter" @bind:event="oninput" placeholder="Neighborhood name..." />
+                            </div>
+                        </ColumnOptions>
+                    </PropertyColumn>
+                    <PropertyColumn Property="@(p => p.ParkAndFacility)" Title="Parks & Facilities" Format="N0" Align="Align.Center" Sortable="true" />
+                </QuickGrid>
+            </div>
+            <Paginator State="@pagination" />
+        }
+        
+    </div>
+</div>
+
+@code {
+    private IEnumerable<NeighborhoodViewModel> parkAndFacilities = null!;
+
+    private QuickGrid<NeighborhoodViewModel>? grid;
+    private PaginationState pagination = new() { ItemsPerPage = 10 };
+    string nameFilter;
+    IQueryable<NeighborhoodViewModel> parkAndFacilityGrid
+    {
+        get
+        {
+            var result = parkAndFacilities.AsQueryable();
+
+            if (!string.IsNullOrEmpty(nameFilter))
+            {
+                result = result.Where(c => c.NeighborhoodName.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            return result;
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        parkAndFacilities = await ParkAndFacilityService.GetAllAsync();
+    }
+
+    
+}

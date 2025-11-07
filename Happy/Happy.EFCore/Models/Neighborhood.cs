@@ -15,6 +15,8 @@ public partial class Neighborhood
 
     public virtual ICollection<Income> Incomes { get; set; } = new List<Income>();
 
+    public virtual ICollection<ParkAndFacility> ParkAndFacilities { get; set; } = new List<ParkAndFacility>();
+
     public virtual ICollection<Population> Populations { get; set; } = new List<Population>();
 
     public virtual ICollection<Rental> Rentals { get; set; } = new List<Rental>();

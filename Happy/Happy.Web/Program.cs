@@ -15,6 +15,7 @@ builder.Services.AddScoped<IPopulationService, PopulationService>();
 builder.Services.AddScoped<IIncomeService, IncomeService>();
 builder.Services.AddScoped<ISafetyService, SafetyService>();
 builder.Services.AddScoped<IRentalService, RentalService>();
+builder.Services.AddScoped<IParkAndFacilityService, ParkAndFacilityService>();
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

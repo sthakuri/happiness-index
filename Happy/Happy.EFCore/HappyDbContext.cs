@@ -22,6 +22,8 @@ public partial class HappyDbContext : DbContext
 
     public virtual DbSet<Neighborhood> Neighborhoods { get; set; }
 
+    public virtual DbSet<ParkAndFacility> ParkAndFacilities { get; set; }
+
     public virtual DbSet<Population> Populations { get; set; }
 
     public virtual DbSet<Rental> Rentals { get; set; }
@@ -71,6 +73,20 @@ public partial class HappyDbContext : DbContext
             entity.Property(e => e.ZipCode)
                 .HasMaxLength(10)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<ParkAndFacility>(entity =>
+        {
+            entity.HasKey(e => e.ParkAndFacilityId).HasName("PK__ParkAndF__1DE20C1704B07136");
+
+            entity.ToTable("ParkAndFacility");
+
+            entity.Property(e => e.ParkAndFacilityId).HasColumnName("ParkAndFacilityID");
+            entity.Property(e => e.NeighborhoodId).HasColumnName("NeighborhoodID");
+
+            entity.HasOne(d => d.Neighborhood).WithMany(p => p.ParkAndFacilities)
+                .HasForeignKey(d => d.NeighborhoodId)
+                .HasConstraintName("FK_ParkAndFacility_NeighborhoodID");
         });
 
         modelBuilder.Entity<Population>(entity =>
