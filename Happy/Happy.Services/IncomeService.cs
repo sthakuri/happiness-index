@@ -5,18 +5,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Happy.Services
 {
-    public class PopulationService(HappyDbContext dbContext) : IPopulationService
+    public class IncomeService(HappyDbContext dbContext) : IIncomeService
     {
         HappyDbContext HappyDb = dbContext;
         public async Task<IEnumerable<NeighborhoodViewModel>> GetAllAsync()
         {
             return await HappyDb.Neighborhoods
-                .Include(x => x.Populations)
+                .Include(x => x.Incomes)
                 .GroupBy(x => x.NeighborhoodName)
                 .Select(x => new NeighborhoodViewModel()
                 {
                     NeighborhoodName = x.Key,
-                    Population = x.SelectMany(x => x.Populations).Sum(x => x.PopulationCount)
+                    MedianIncome = x.SelectMany(x => x.Incomes).Sum(x => x.MedianIncome)
                 })
                 .ToListAsync();
         }

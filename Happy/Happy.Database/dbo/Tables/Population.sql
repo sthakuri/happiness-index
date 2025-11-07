@@ -4,6 +4,6 @@
 	NeighborhoodID INT NOT NULL,
 	PopulationCount INT NOT NULL,	
 
-	CONSTRAINT FK_Population_NeighborhoodID FOREIGN KEY (NeighborhoodID) REFERENCES dbo.Neighborhood(NeighborhoodID)
+	CONSTRAINT FK_Population_NeighborhoodID FOREIGN KEY (NeighborhoodID) REFERENCES dbo.Neighborhood(NeighborhoodID) ON DELETE CASCADE
 )
 GO

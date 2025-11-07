@@ -12,6 +12,9 @@ builder.Services.AddDbContext<HappyDbContext>(options =>
 // Add services to the container.
 builder.Services.AddScoped<INeighborhoodService, NeighborhoodService>();
 builder.Services.AddScoped<IPopulationService, PopulationService>();
+builder.Services.AddScoped<IIncomeService, IncomeService>();
+builder.Services.AddScoped<ISafetyService, SafetyService>();
+builder.Services.AddScoped<IRentalService, RentalService>();
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

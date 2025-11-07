@@ -16,12 +16,46 @@ public partial class HappyDbContext : DbContext
     {
     }
 
+    public virtual DbSet<Crime> Crimes { get; set; }
+
+    public virtual DbSet<Income> Incomes { get; set; }
+
     public virtual DbSet<Neighborhood> Neighborhoods { get; set; }
 
     public virtual DbSet<Population> Populations { get; set; }
 
+    public virtual DbSet<Rental> Rentals { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Crime>(entity =>
+        {
+            entity.HasKey(e => e.CrimeId).HasName("PK__Crime__83ED048D6C9E3A92");
+
+            entity.ToTable("Crime");
+
+            entity.Property(e => e.CrimeId).HasColumnName("CrimeID");
+            entity.Property(e => e.NeighborhoodId).HasColumnName("NeighborhoodID");
+
+            entity.HasOne(d => d.Neighborhood).WithMany(p => p.Crimes)
+                .HasForeignKey(d => d.NeighborhoodId)
+                .HasConstraintName("FK_Crime_NeighborhoodID");
+        });
+
+        modelBuilder.Entity<Income>(entity =>
+        {
+            entity.HasKey(e => e.IncomeId).HasName("PK__Income__60DFC66C45E92DFC");
+
+            entity.ToTable("Income");
+
+            entity.Property(e => e.IncomeId).HasColumnName("IncomeID");
+            entity.Property(e => e.NeighborhoodId).HasColumnName("NeighborhoodID");
+
+            entity.HasOne(d => d.Neighborhood).WithMany(p => p.Incomes)
+                .HasForeignKey(d => d.NeighborhoodId)
+                .HasConstraintName("FK_Income_NeighborhoodID");
+        });
+
         modelBuilder.Entity<Neighborhood>(entity =>
         {
             entity.HasKey(e => e.NeighborhoodId).HasName("PK__Neighbor__268014493C6A3D65");
@@ -50,8 +84,21 @@ public partial class HappyDbContext : DbContext
 
             entity.HasOne(d => d.Neighborhood).WithMany(p => p.Populations)
                 .HasForeignKey(d => d.NeighborhoodId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Population_NeighborhoodID");
+        });
+
+        modelBuilder.Entity<Rental>(entity =>
+        {
+            entity.HasKey(e => e.RentalId).HasName("PK__Rental__970059638E6FBC47");
+
+            entity.ToTable("Rental");
+
+            entity.Property(e => e.RentalId).HasColumnName("RentalID");
+            entity.Property(e => e.NeighborhoodId).HasColumnName("NeighborhoodID");
+
+            entity.HasOne(d => d.Neighborhood).WithMany(p => p.Rentals)
+                .HasForeignKey(d => d.NeighborhoodId)
+                .HasConstraintName("FK_Rental_NeighborhoodID");
         });
 
         OnModelCreatingPartial(modelBuilder);

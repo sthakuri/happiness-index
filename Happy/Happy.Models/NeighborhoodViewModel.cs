@@ -13,6 +13,9 @@ namespace Happy.ViewModels
         public string ZipCode { get; set; } = null!;
 
         public string NeighborhoodName { get; set; } = null!;
-        public int PopulationCount { get; set; }
+        public int Population { get; set; }
+        public int MedianIncome { get; set; }
+        public int CrimeIncident { get; set; }
+        public int MonthlyRental { get; set; }
     }
 }

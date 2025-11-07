@@ -63,5 +63,8 @@
   <ItemGroup>
     <Build Include="dbo\Tables\Neighborhood.sql" />
     <Build Include="dbo\Tables\Population.sql" />
+    <Build Include="dbo\Tables\Income.sql" />
+    <Build Include="dbo\Tables\Crime.sql" />
+    <Build Include="dbo\Tables\Rental.sql" />
   </ItemGroup>
 </Project>
