@@ -20,4 +20,6 @@ public partial class Neighborhood
     public virtual ICollection<Population> Populations { get; set; } = new List<Population>();
 
     public virtual ICollection<Rental> Rentals { get; set; } = new List<Rental>();
+
+    public virtual ICollection<Transportation> Transportations { get; set; } = new List<Transportation>();
 }

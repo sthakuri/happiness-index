@@ -13,6 +13,10 @@
 <div class="card shadow-sm">
     <div class="card-header">
         <h5 class="mb-0">Neighborhood Crime Incidents</h5>
+        <label>
+            The following data is based on the SFPD incident report for the year 2023. Source:
+            <a href="https://data.sfgov.org/Public-Safety/Police-Department-Incident-Reports-2018-to-Present/wg3w-h783/data_preview" target="_blank">data.sfgov.org</a>
+        </label>
     </div>
     <div class="card-body">
         @if (incidents == null)
@@ -24,7 +28,7 @@
         else
         {
             <div class="grid table-responsive">
-                <QuickGrid @ref="grid" Items="@incidentGrid" Pagination="@pagination" Class="table table-hover">                    
+                <QuickGrid @ref="grid" Items="@incidentGrid" Pagination="@pagination" Class="table table-hover">
                     <PropertyColumn Property="@(p => p.NeighborhoodName)" Title="Neighborhood" Sortable="true">
                         <ColumnOptions>
                             <div class="search-box">
@@ -37,7 +41,7 @@
             </div>
             <Paginator State="@pagination" />
         }
-        
+
     </div>
 </div>
 
@@ -66,5 +70,5 @@
         incidents = await SafetyService.GetAllAsync();
     }
 
-    
+
 }

@@ -18,5 +18,6 @@ namespace Happy.ViewModels
         public int CrimeIncident { get; set; }
         public int MonthlyRental { get; set; }
         public int ParkAndFacility { get; set; }
+        public int MuniStops { get; set; }
     }
 }

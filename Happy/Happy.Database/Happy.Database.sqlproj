@@ -67,5 +67,6 @@
     <Build Include="dbo\Tables\Crime.sql" />
     <Build Include="dbo\Tables\Rental.sql" />
     <Build Include="dbo\Tables\ParkAndFacility.sql" />
+    <Build Include="dbo\Tables\Transportation.sql" />
   </ItemGroup>
 </Project>

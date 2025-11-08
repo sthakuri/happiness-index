@@ -1,4 +1,4 @@
-﻿@page "/Rental"
+﻿@page "/Transportation"
 @using Happy.ViewModels
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using Happy.EFCore.Models
@@ -6,20 +6,20 @@
 
 @rendermode InteractiveServer
 
-@inject IRentalService RentalService
+@inject ITransportationService TransportationService
 
-<PageTitle>Rental</PageTitle>
+<PageTitle>Transportation</PageTitle>
 
 <div class="card shadow-sm">
     <div class="card-header">
-        <h5 class="mb-0">Neighborhood Monthly Rentals</h5>
+        <h5 class="mb-0">Neighborhood Commute & Transportation</h5>
         <label>
-            The following data is based on rental and housing data published in sfgov.org for the year 2023. Rental data was normalized to single bed per month. Source:
-            <a href="https://data.sfgov.org/Housing-and-Buildings/Rent-Board-Housing-Inventory/gdc7-dmcn/data_preview" target="_blank">data.sfgov.gov</a>
+            The following data is based on Muni Stops. Source:
+            <a href="https://data.sfgov.org/Transportation/Muni-Stops/i28k-bkz6/data_preview" target="_blank">data.sfgov.gov</a>
         </label>
     </div>
     <div class="card-body">
-        @if (rentals == null)
+        @if (muniStops == null)
         {
             <p class="placeholder-glow">
                 <span class="placeholder col-12"></span>
@@ -28,7 +28,7 @@
         else
         {
             <div class="grid table-responsive">
-                <QuickGrid @ref="grid" Items="@rentalGrid" Pagination="@pagination" Class="table table-hover">                    
+                <QuickGrid @ref="grid" Items="@muniStopGrid" Pagination="@pagination" Class="table table-hover">
                     <PropertyColumn Property="@(p => p.NeighborhoodName)" Title="Neighborhood" Sortable="true">
                         <ColumnOptions>
                             <div class="search-box">
@@ -36,7 +36,7 @@
                             </div>
                         </ColumnOptions>
                     </PropertyColumn>
-                    <PropertyColumn Property="@(p => p.MonthlyRental)" Title="Monthly Rent" Format="C0" Align="Align.Center" Sortable="true" />
+                    <PropertyColumn Property="@(p => p.MuniStops)" Title="Muni Stops" Format="N0" Align="Align.Center" Sortable="true" />
                 </QuickGrid>
             </div>
             <Paginator State="@pagination" />
@@ -46,16 +46,16 @@
 </div>
 
 @code {
-    private IEnumerable<NeighborhoodViewModel> rentals = null!;
+    private IEnumerable<NeighborhoodViewModel> muniStops = null!;
 
     private QuickGrid<NeighborhoodViewModel>? grid;
     private PaginationState pagination = new() { ItemsPerPage = 10 };
     string nameFilter;
-    IQueryable<NeighborhoodViewModel> rentalGrid
+    IQueryable<NeighborhoodViewModel> muniStopGrid
     {
         get
         {
-            var result = rentals.AsQueryable();
+            var result = muniStops.AsQueryable();
 
             if (!string.IsNullOrEmpty(nameFilter))
             {
@@ -67,7 +67,7 @@
     }
     protected override async Task OnInitializedAsync()
     {
-        rentals = await RentalService.GetAllAsync();
+        muniStops = await TransportationService.GetAllAsync();
     }
 
     

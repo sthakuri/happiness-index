@@ -13,6 +13,10 @@
 <div class="card shadow-sm">
     <div class="card-header">
         <h5 class="mb-0">Neighborhood Median Income</h5>
+        <label>
+            The following data is based on subset of Census Data. Sub set: Estimated Median Income by Age between 25 to 44 years. Source:
+            <a href="https://data.census.gov/table/ACSST1Y2023.S1903?q=income+in+San+Francisco+County,+California&g=040XX00US06$8600000&y=2023" target="_blank">data.census.gov</a>
+        </label>
     </div>
     <div class="card-body">
         @if (incomes == null)
@@ -31,13 +35,13 @@
                                 <input type="search" autofocus @bind="nameFilter" @bind:event="oninput" placeholder="Neighborhood name..." />
                             </div>
                         </ColumnOptions>
-                    </PropertyColumn>                    
+                    </PropertyColumn>
                     <PropertyColumn Property="@(p => p.MedianIncome)" Title="Median Income" Format="c0" Align="Align.Center" Sortable="true" />
                 </QuickGrid>
             </div>
             <Paginator State="@pagination" />
         }
-        
+
     </div>
 </div>
 
@@ -66,5 +70,5 @@
         incomes = await IncomeService.GetAllAsync();
     }
 
-    
+
 }

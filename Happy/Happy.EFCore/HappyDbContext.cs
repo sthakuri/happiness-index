@@ -28,6 +28,8 @@ public partial class HappyDbContext : DbContext
 
     public virtual DbSet<Rental> Rentals { get; set; }
 
+    public virtual DbSet<Transportation> Transportations { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Crime>(entity =>
@@ -115,6 +117,20 @@ public partial class HappyDbContext : DbContext
             entity.HasOne(d => d.Neighborhood).WithMany(p => p.Rentals)
                 .HasForeignKey(d => d.NeighborhoodId)
                 .HasConstraintName("FK_Rental_NeighborhoodID");
+        });
+
+        modelBuilder.Entity<Transportation>(entity =>
+        {
+            entity.HasKey(e => e.TransportationId).HasName("PK__Transpor__87E479561E0D991C");
+
+            entity.ToTable("Transportation");
+
+            entity.Property(e => e.TransportationId).HasColumnName("TransportationID");
+            entity.Property(e => e.NeighborhoodId).HasColumnName("NeighborhoodID");
+
+            entity.HasOne(d => d.Neighborhood).WithMany(p => p.Transportations)
+                .HasForeignKey(d => d.NeighborhoodId)
+                .HasConstraintName("FK_Transportation_NeighborhoodID");
         });
 
         OnModelCreatingPartial(modelBuilder);

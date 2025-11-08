@@ -1,4 +1,5 @@
 ﻿@page "/Neighborhood"
+@using Happy.ViewModels
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using Happy.EFCore.Models
 @using Happy.Services.Interfaces
@@ -23,8 +24,7 @@
         else
         {
             <div class="grid table-responsive">
-                <QuickGrid @ref="grid" Items="@neighborhoodGrid" Pagination="@pagination" Class="table table-hover">
-                    <PropertyColumn Property="@(p => p.ZipCode)" Title="Zip Code" Align="Align.Start" Sortable="true" IsDefaultSortColumn="true" />
+                <QuickGrid @ref="grid" Items="@neighborhoodGrid" Pagination="@pagination" Class="table table-hover">                    
                     <PropertyColumn Property="@(p => p.NeighborhoodName)" Title="Neighborhood" Sortable="true">
                         <ColumnOptions>
                             <div class="search-box">
@@ -41,12 +41,12 @@
 </div>
 
 @code {
-    private IEnumerable<Neighborhood> neighborhoods = null!;
+    private IEnumerable<NeighborhoodViewModel> neighborhoods = null!;
 
-    private QuickGrid<Neighborhood>? grid;
+    private QuickGrid<NeighborhoodViewModel>? grid;
     private PaginationState pagination = new() { ItemsPerPage = 10 };
     string nameFilter;
-    IQueryable<Neighborhood> neighborhoodGrid
+    IQueryable<NeighborhoodViewModel> neighborhoodGrid
     {
         get
         {
