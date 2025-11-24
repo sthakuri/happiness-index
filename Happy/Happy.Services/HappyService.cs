@@ -17,6 +17,7 @@ namespace Happy.Services
         public async Task<IEnumerable<NeighborhoodViewModel>> GetNeighborhoodHappinessScoreAsync()
         {
             return await HappyDb.Neighborhoods
+                .Include(x=> x.Populations)
                 .Include(x => x.Incomes)
                 .Include(x => x.Rentals)
                 .Include(x => x.Crimes)
@@ -26,6 +27,7 @@ namespace Happy.Services
                 .Select(x => new NeighborhoodViewModel()
                 {
                     NeighborhoodName = x.Key,
+                    Population = x.SelectMany(x=> x.Populations).Sum(x=> x.PopulationCount),
                     // Economic Score->Income & Employment + Housing & Rent
                     EconomicScore = (x.SelectMany(x => x.Incomes).Average(x => x.Score!.Value) + x.SelectMany(x => x.Rentals).Average(x => x.Score!.Value)) / 2,
                     // Safety Score -> Safety & Crime
