@@ -19,5 +19,12 @@ namespace Happy.ViewModels
         public int MonthlyRental { get; set; }
         public int ParkAndFacility { get; set; }
         public int MuniStops { get; set; }
+
+        public decimal EconomicScore { get; set; }
+        public decimal SafetyScore { get; set; }
+        public decimal EnvironmentScore { get; set; }
+        public decimal AccessibilityScore { get; set; }
+
+        public decimal HappinessScore { get { return 0.30m *EconomicScore + 0.25m * SafetyScore + 0.20m * EnvironmentScore + 0.15m * AccessibilityScore; } }
     }
 }

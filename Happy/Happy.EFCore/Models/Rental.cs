@@ -11,5 +11,7 @@ public partial class Rental
 
     public int MonthlyRental { get; set; }
 
+    public decimal? Score { get; set; }
+
     public virtual Neighborhood Neighborhood { get; set; } = null!;
 }

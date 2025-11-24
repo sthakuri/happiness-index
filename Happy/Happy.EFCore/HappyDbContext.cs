@@ -34,12 +34,13 @@ public partial class HappyDbContext : DbContext
     {
         modelBuilder.Entity<Crime>(entity =>
         {
-            entity.HasKey(e => e.CrimeId).HasName("PK__Crime__83ED048D6C9E3A92");
+            entity.HasKey(e => e.CrimeId).HasName("PK__Crime__83ED048D989A1220");
 
             entity.ToTable("Crime");
 
             entity.Property(e => e.CrimeId).HasColumnName("CrimeID");
             entity.Property(e => e.NeighborhoodId).HasColumnName("NeighborhoodID");
+            entity.Property(e => e.Score).HasColumnType("decimal(2, 1)");
 
             entity.HasOne(d => d.Neighborhood).WithMany(p => p.Crimes)
                 .HasForeignKey(d => d.NeighborhoodId)
@@ -48,12 +49,13 @@ public partial class HappyDbContext : DbContext
 
         modelBuilder.Entity<Income>(entity =>
         {
-            entity.HasKey(e => e.IncomeId).HasName("PK__Income__60DFC66C45E92DFC");
+            entity.HasKey(e => e.IncomeId).HasName("PK__Income__60DFC66CF5F04735");
 
             entity.ToTable("Income");
 
             entity.Property(e => e.IncomeId).HasColumnName("IncomeID");
             entity.Property(e => e.NeighborhoodId).HasColumnName("NeighborhoodID");
+            entity.Property(e => e.Score).HasColumnType("decimal(2, 1)");
 
             entity.HasOne(d => d.Neighborhood).WithMany(p => p.Incomes)
                 .HasForeignKey(d => d.NeighborhoodId)
@@ -79,12 +81,13 @@ public partial class HappyDbContext : DbContext
 
         modelBuilder.Entity<ParkAndFacility>(entity =>
         {
-            entity.HasKey(e => e.ParkAndFacilityId).HasName("PK__ParkAndF__1DE20C1704B07136");
+            entity.HasKey(e => e.ParkAndFacilityId).HasName("PK__ParkAndF__1DE20C17942DDF01");
 
             entity.ToTable("ParkAndFacility");
 
             entity.Property(e => e.ParkAndFacilityId).HasColumnName("ParkAndFacilityID");
             entity.Property(e => e.NeighborhoodId).HasColumnName("NeighborhoodID");
+            entity.Property(e => e.Score).HasColumnType("decimal(2, 1)");
 
             entity.HasOne(d => d.Neighborhood).WithMany(p => p.ParkAndFacilities)
                 .HasForeignKey(d => d.NeighborhoodId)
@@ -107,12 +110,13 @@ public partial class HappyDbContext : DbContext
 
         modelBuilder.Entity<Rental>(entity =>
         {
-            entity.HasKey(e => e.RentalId).HasName("PK__Rental__970059638E6FBC47");
+            entity.HasKey(e => e.RentalId).HasName("PK__Rental__9700596399B44E69");
 
             entity.ToTable("Rental");
 
             entity.Property(e => e.RentalId).HasColumnName("RentalID");
             entity.Property(e => e.NeighborhoodId).HasColumnName("NeighborhoodID");
+            entity.Property(e => e.Score).HasColumnType("decimal(2, 1)");
 
             entity.HasOne(d => d.Neighborhood).WithMany(p => p.Rentals)
                 .HasForeignKey(d => d.NeighborhoodId)
@@ -121,12 +125,13 @@ public partial class HappyDbContext : DbContext
 
         modelBuilder.Entity<Transportation>(entity =>
         {
-            entity.HasKey(e => e.TransportationId).HasName("PK__Transpor__87E479561E0D991C");
+            entity.HasKey(e => e.TransportationId).HasName("PK__Transpor__87E47956A7ED2435");
 
             entity.ToTable("Transportation");
 
             entity.Property(e => e.TransportationId).HasColumnName("TransportationID");
             entity.Property(e => e.NeighborhoodId).HasColumnName("NeighborhoodID");
+            entity.Property(e => e.Score).HasColumnType("decimal(2, 1)");
 
             entity.HasOne(d => d.Neighborhood).WithMany(p => p.Transportations)
                 .HasForeignKey(d => d.NeighborhoodId)

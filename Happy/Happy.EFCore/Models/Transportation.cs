@@ -11,5 +11,7 @@ public partial class Transportation
 
     public int MuniStops { get; set; }
 
+    public decimal? Score { get; set; }
+
     public virtual Neighborhood Neighborhood { get; set; } = null!;
 }

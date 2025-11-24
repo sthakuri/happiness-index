@@ -17,6 +17,7 @@ builder.Services.AddScoped<ISafetyService, SafetyService>();
 builder.Services.AddScoped<IRentalService, RentalService>();
 builder.Services.AddScoped<IParkAndFacilityService, ParkAndFacilityService>();
 builder.Services.AddScoped<ITransportationService, TransportationService>();
+builder.Services.AddScoped<IHappyService, HappyService>();
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
