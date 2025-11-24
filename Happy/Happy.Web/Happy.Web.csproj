@@ -8,11 +8,25 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="9.0.10" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Happy.Models\Happy.ViewModels.csproj" />
     <ProjectReference Include="..\Happy.Services\Happy.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\Charts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\data\sf_happiness_score.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\data\sf_neighborhoods.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
