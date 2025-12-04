@@ -1,5 +1,6 @@
 ﻿using Happy.EFCore.Models;
 using Happy.ViewModels;
+using MongoDB.Bson;
 
 namespace Happy.Services.Interfaces
 {
@@ -16,5 +17,11 @@ namespace Happy.Services.Interfaces
         /// <param name="zipCode"></param>
         /// <returns></returns>
         Task<IEnumerable<NeighborhoodViewModel>> GetAllByZipCodeAsync(string zipCode);
+
+        /// <summary>
+        /// Get GeoJSON all neighborhoods
+        /// </summary>
+        /// <returns></returns>
+        Task<string> GetGeoJSONAsync();
     }
 }

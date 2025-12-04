@@ -40,17 +40,17 @@ window.plotNormalizedAttributes = function (elementId, dataObj) {
 
     const labels = dataObj.map(d => d.NeighborhoodName);
     const econ = dataObj.map(d => d.EconomicScore);
+    const acc = dataObj.map(d => d.AccessibilityScore);
 
     const happiness = dataObj.map(d => d.HappinessScore);
-    const population = dataObj.map(d => d.Population);
-
+ 
     var data = [{
         x: econ,
-        y: happiness,
+        y: acc,
         mode: 'markers',
         text: labels,
         marker: {
-            size: population.map(p => Math.max(p, 1000)),
+            size: happiness.map(p => Math.max(p * 1000, 1000)),
             color: happiness,
             colorscale: [
                 [0.0, "#dc3545"],  // danger red (<0.30)
@@ -75,11 +75,11 @@ window.plotNormalizedAttributes = function (elementId, dataObj) {
     Plotly.newPlot(elementId, data, {
         title: 'Happiness Index – Bubble Chart',
         xaxis: {
-            title: 'Income (Normalized)',
+            title: 'Income',
             range: [0, 1]
         },
         yaxis: {
-            title: 'Happiness Score',
+            title: 'Accessibility',
             range: [0, 1]
         },
         hovermode: 'closest',

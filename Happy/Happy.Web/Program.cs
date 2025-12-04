@@ -1,14 +1,33 @@
 using Happy.EFCore;
 using Happy.Services;
 using Happy.Services.Interfaces;
+using Happy.ViewModels;
 using Happy.Web.Components;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add DbContext to the DI container
 builder.Services.AddDbContext<HappyDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("HappyDb")));
 
+// Add MongoDb
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDbSettings"));
+
+builder.Services.AddSingleton<IMongoClient>(sp =>
+{
+    var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
+    return new MongoClient(settings.ConnectionString);
+});
+
+builder.Services.AddSingleton(sp =>
+{
+    var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
+    var client = sp.GetRequiredService<IMongoClient>();
+    return client.GetDatabase(settings.DatabaseName);
+});
 // Add services to the container.
 builder.Services.AddScoped<INeighborhoodService, NeighborhoodService>();
 builder.Services.AddScoped<IPopulationService, PopulationService>();

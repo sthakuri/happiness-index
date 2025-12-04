@@ -307,9 +307,6 @@
         }
     }
 
-    // private JsonElement geoObj;
-    // private JsonElement scoresObj;
-
     protected override async Task OnInitializedAsync()
     {
         happyNeighborhoods = await HappyService.GetNeighborhoodHappinessScoreAsync();
@@ -327,15 +324,10 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var geoJsonPath = Path.Combine(Env.WebRootPath, "data", "sf_neighborhoods.json");
-        var geoJson = File.ReadAllText(geoJsonPath);
-        var geoObj = JsonDocument.Parse(geoJson).RootElement;
+        var geoObj = JsonDocument.Parse(await NeighborhoodService.GetGeoJSONAsync()).RootElement;
 
-        var scoresJsonPath = Path.Combine(Env.WebRootPath, "data", "sf_happiness_score.json");
-        var scoresJson = File.ReadAllText(scoresJsonPath);
-        var scoresObj = JsonDocument.Parse(scoresJson).RootElement;
-
-
+        string json = System.Text.Json.JsonSerializer.Serialize(happyNeighborhoods);
+        var scoresObj = JsonDocument.Parse(json).RootElement;
 
         if (firstRender)
         {
